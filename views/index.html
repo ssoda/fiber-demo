@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{ .Title }}</title>
-  </head>
 
-  <body>
+<head>
+    <title>{{ .Title }}</title>
+    <style>
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box div {
+            width: 300px;
+            height: 300px;
+            background-color: #d2d1d1;
+        }
+    </style>
+</head>
+
+<body>
     Hello, World!
-  </body>
+    <div class="box">
+        <div></div>
+    </div>
+</body>
+
 </html>
