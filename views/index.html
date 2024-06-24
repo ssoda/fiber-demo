@@ -8,12 +8,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            height: 400px;
+            background-color: #c5ff8e;
+            flex-direction: column;
         }
 
-        .box div {
-            width: 300px;
-            height: 300px;
+        .form {
+            width: 260px;
+            height: 350px;
             background-color: #d2d1d1;
+        }
+
+        .form-input {
+            margin: 10px;
+        }
+
+        .form-input > p {
+            margin-bottom: 5px;
+        }
+
+        .form-input > input {
+            width: 150px;
         }
     </style>
 </head>
@@ -21,7 +36,27 @@
 <body>
     Hello, World!
     <div class="box">
-        <div></div>
+        <div class="form">
+            <div class="form-input">
+                <p>account</p>
+                <input type="text" name="account" id="input-account" placeholder="Enter account..." />
+            </div>
+            <div class="form-input">
+                <p>password</p>
+                <input type="password" name="password" id="input-password" placeholder="Enter password..." />
+            </div>
+            <div class="form-input">
+                <p>captcha</p>
+                <img src="https://place-hold.it/240x80" alt="captcha-image" width="240" height="80" />
+            </div>
+            <div class="form-input">
+                <input type="text" name="captcha" id="input-captcha" placeholder="Enter captcha..." />
+                <button id="reload-captcha-btn">reload</button>
+            </div>
+            <div class="form-input">
+                <button id="form-submit-btn">submit</button>
+            </div>
+        </div>
     </div>
 </body>
 
