@@ -23,14 +23,16 @@
             margin: 10px;
         }
 
-        .form-input > p {
+        .form-input>p {
             margin-bottom: 5px;
         }
 
-        .form-input > input {
+        .form-input>input {
             width: 150px;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -47,7 +49,7 @@
             </div>
             <div class="form-input">
                 <p>captcha</p>
-                <img src="https://place-hold.it/240x80" alt="captcha-image" width="240" height="80" />
+                <img id="captcha-image" src="" alt="captcha-image" width="240" height="80" />
             </div>
             <div class="form-input">
                 <input type="text" name="captcha" id="input-captcha" placeholder="Enter captcha..." />
@@ -59,5 +61,25 @@
         </div>
     </div>
 </body>
+
+<script>
+    let currentCaptchaID = "";
+
+    $(document).ready(function () {
+        $.get("/api/captcha/retrieve-id", function (data) {
+            currentCaptchaID = data.captcha_id
+            $("#captcha-image")
+                .attr("src", "/api/captcha/resolve-image?captcha_id=" + currentCaptchaID);
+        }, "json");
+    });
+
+    $("#reload-captcha-btn").click(function () {
+        $("#captcha-image")
+            .attr("src", function (idx, value) {
+                // add timestamp to url to force reload image (prevent from caching)
+                return "/api/captcha/resolve-image?captcha_id=" + currentCaptchaID + "&reload=true&t=" + Date.now();
+            });
+    });
+</script>
 
 </html>
