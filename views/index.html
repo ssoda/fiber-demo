@@ -14,7 +14,7 @@
         }
 
         .form {
-            width: 260px;
+            width: 330px;
             height: 350px;
             background-color: #d2d1d1;
         }
@@ -54,6 +54,7 @@
             <div class="form-input">
                 <input type="text" name="captcha" id="input-captcha" placeholder="Enter captcha..." />
                 <button id="reload-captcha-btn">reload</button>
+                <button id="play-captcha-btn">play sound</button>
             </div>
             <div class="form-input">
                 <button id="form-submit-btn">submit</button>
@@ -64,12 +65,16 @@
 
 <script>
     let currentCaptchaID = "";
+    let audio;
 
     $(document).ready(function () {
         $.get("/api/captcha/retrieve-id", function (data) {
-            currentCaptchaID = data.captcha_id
+            currentCaptchaID = data.captcha_id;
+            // load image
             $("#captcha-image")
                 .attr("src", "/api/captcha/resolve-image?captcha_id=" + currentCaptchaID);
+            // load audio
+            audio = new Audio("/api/captcha/resolve-audio?captcha_id=" + currentCaptchaID);
         }, "json");
     });
 
@@ -79,6 +84,10 @@
                 // add timestamp to url to force reload image (prevent from caching)
                 return "/api/captcha/resolve-image?captcha_id=" + currentCaptchaID + "&reload=true&t=" + Date.now();
             });
+    });
+
+    $("#play-captcha-btn").click(function () {
+        audio.play();
     });
 </script>
 
