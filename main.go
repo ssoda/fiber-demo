@@ -22,5 +22,9 @@ func main() {
 		})
 	})
 
+	app.Post("/login", func(c *fiber.Ctx) error {
+		return c.SendString("ok")
+	})
+
 	log.Fatal(app.Listen(":3000"))
 }
