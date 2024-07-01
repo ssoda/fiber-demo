@@ -8,6 +8,11 @@ import (
 	"github.com/ssoda/fibercaptcha"
 )
 
+type LoginInput struct {
+	CaptchaID string `json:"captcha_id"`
+	Captcha   string `json:"captcha"`
+}
+
 func main() {
 	engine := html.New("./views", ".html")
 
@@ -23,6 +28,12 @@ func main() {
 	})
 
 	app.Post("/login", func(c *fiber.Ctx) error {
+		input := new(LoginInput)
+		if err := c.BodyParser(input); err != nil {
+			log.Println("parse input error:", err)
+			return c.SendStatus(fiber.StatusBadRequest)
+		}
+
 		return c.SendString("ok")
 	})
 
